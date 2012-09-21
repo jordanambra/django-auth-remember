@@ -39,7 +39,7 @@ def set_user_is_fresh(sender, **kwargs):
     user = kwargs['user']
     user.is_fresh = not getattr(user, '_auth_remember_user', False)
 
-    if request.session:
+    if hasattr(request, 'session'):
         request.session[SESSION_KEY] = user.is_fresh
 
 
