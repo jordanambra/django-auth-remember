@@ -38,7 +38,9 @@ def set_user_is_fresh(sender, **kwargs):
     request = kwargs['request']
     user = kwargs['user']
     user.is_fresh = not getattr(user, '_auth_remember_user', False)
-    request.session[SESSION_KEY] = user.is_fresh
+
+    if request.session:
+        request.session[SESSION_KEY] = user.is_fresh
 
 
 @receiver(signals.user_logged_out)
